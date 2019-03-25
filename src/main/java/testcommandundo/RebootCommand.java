@@ -1,0 +1,26 @@
+package testcommandundo;
+
+public class RebootCommand implements Command {
+    Receiver receiver;
+
+    RebootCommand(Receiver receiver) {
+        this.receiver = receiver;
+    }
+
+    @Override
+    public void execute() {
+        receiver.connect();
+        receiver.reboot();
+        receiver.disconnect();
+        System.out.println();
+    }
+
+    @Override
+    public void undo() {
+        System.out.println("Undoing the reboot...");
+        receiver.connect();
+        receiver.shutdown();
+        receiver.disconnect();
+        System.out.println();
+    }
+}
